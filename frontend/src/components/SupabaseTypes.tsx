@@ -14,39 +14,6 @@ export type Enum<T extends keyof Database['public']['Enums']> = Database['public
 export interface Database {
   public: {
     Tables: {
-      Connections: {
-        Row: {
-          created_at: string
-          end_id: number
-          end_type: Database["public"]["Enums"]["block_type"]
-          entity_id: number
-          id: number
-          start_id: number
-          start_type: Database["public"]["Enums"]["block_type"]
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          end_id: number
-          end_type: Database["public"]["Enums"]["block_type"]
-          entity_id: number
-          id?: number
-          start_id: number
-          start_type: Database["public"]["Enums"]["block_type"]
-          user_id?: string
-        }
-        Update: {
-          created_at?: string
-          end_id?: number
-          end_type?: Database["public"]["Enums"]["block_type"]
-          entity_id?: number
-          id?: number
-          start_id?: number
-          start_type?: Database["public"]["Enums"]["block_type"]
-          user_id?: string
-        }
-        Relationships: []
-      }
       Entities: {
         Row: {
           created_at: string
@@ -74,6 +41,7 @@ export interface Database {
           created_at: string
           entity_id: number
           id: number
+          image_processor: Database["public"]["Enums"]["processor_type"] | null
           input_type: Database["public"]["Enums"]["input_type"]
           mcq_options: string[] | null
           outgoing_type: Database["public"]["Enums"]["data_type"]
@@ -85,6 +53,7 @@ export interface Database {
           created_at?: string
           entity_id: number
           id?: number
+          image_processor?: Database["public"]["Enums"]["processor_type"] | null
           input_type: Database["public"]["Enums"]["input_type"]
           mcq_options?: string[] | null
           outgoing_type: Database["public"]["Enums"]["data_type"]
@@ -96,6 +65,7 @@ export interface Database {
           created_at?: string
           entity_id?: number
           id?: number
+          image_processor?: Database["public"]["Enums"]["processor_type"] | null
           input_type?: Database["public"]["Enums"]["input_type"]
           mcq_options?: string[] | null
           outgoing_type?: Database["public"]["Enums"]["data_type"]
@@ -106,6 +76,7 @@ export interface Database {
       }
       OutputBlocks: {
         Row: {
+          attribute: string | null
           created_at: string
           email: string | null
           email_subject: string | null
@@ -120,6 +91,7 @@ export interface Database {
           user_id: string
         }
         Insert: {
+          attribute?: string | null
           created_at?: string
           email?: string | null
           email_subject?: string | null
@@ -134,6 +106,7 @@ export interface Database {
           user_id?: string
         }
         Update: {
+          attribute?: string | null
           created_at?: string
           email?: string | null
           email_subject?: string | null

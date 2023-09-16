@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: 'Remodel - Custom AI workflows',
+  title: 'remodel - Custom AI workflows',
   description: 'Custom AI workflows made easy',
 }
 

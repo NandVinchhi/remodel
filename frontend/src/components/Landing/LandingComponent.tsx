@@ -35,10 +35,10 @@ return (
             lineHeight="1.2"
             letterSpacing="tight"
             >
-            Custom AI workflows made easy
+            Custom AI workflows in seconds
             </Heading>
             <Text fontSize="xl" mt="4" maxW="2xl" mx="auto">
-            We're an intuitive platform for building complex apps and workflows that leverage cutting edge AI models.
+            We're an intuitive platform for building complex workflows that leverage cutting edge LLMs and more.
             </Text>
         </Box>
 
