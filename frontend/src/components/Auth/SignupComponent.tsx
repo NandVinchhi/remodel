@@ -33,7 +33,7 @@ export const SignupComponent = () => {
       <Stack spacing="6" align="center">
         <Stack spacing="3" textAlign="center">
           <Heading size={{ base: 'xs', md: 'sm' }}>Create an account</Heading>
-          <Text color="fg.muted">This is a signup subtitle with some text</Text>
+          <Text color="fg.muted">Starting building AI workflows today</Text>
         </Stack>
       </Stack>
       <Stack spacing="6">

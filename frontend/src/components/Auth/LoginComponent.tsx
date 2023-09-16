@@ -34,7 +34,7 @@ export const LoginComponent = () => {
         <Stack spacing="6">
           <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
             <Heading size={{ base: 'xs', md: 'sm' }}>Log in to your account</Heading>
-            <Text color="fg.muted">This is a login subtitle with some text</Text>
+            <Text color="fg.muted">Starting building AI workflows today</Text>
           </Stack>
         </Stack>
         <Stack spacing="6">

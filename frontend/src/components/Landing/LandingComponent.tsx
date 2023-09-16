@@ -30,15 +30,15 @@ return (
             as="h1"
             size="3xl"
             fontWeight="extrabold"
-            maxW="3xl"
+            maxW="4xl"
             mx="auto"
             lineHeight="1.2"
             letterSpacing="tight"
             >
-            A cool descriptive title here
+            Custom AI workflows made easy
             </Heading>
-            <Text fontSize="xl" mt="4" maxW="3xl" mx="auto">
-            This is a subtitle that explains some more stuff about how the product works. Maybe mention a couple of the core features.
+            <Text fontSize="xl" mt="4" maxW="2xl" mx="auto">
+            We're an intuitive platform for building complex apps and workflows that leverage cutting edge AI models.
             </Text>
         </Box>
 

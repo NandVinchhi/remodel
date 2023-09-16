@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: 'Title here',
-  description: 'Description here',
+  title: 'Remodel - Custom AI workflows',
+  description: 'Custom AI workflows made easy',
 }
 
 export default function RootLayout({
