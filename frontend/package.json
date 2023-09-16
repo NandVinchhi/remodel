@@ -22,6 +22,8 @@
     "draft-js": "^0.11.7",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
+    "gojs": "^2.3.11",
+    "gojs-react": "^1.1.2",
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
