@@ -1,7 +1,7 @@
 'use client'
 
 import {
-    Box, HStack, Button, Text, Stack, Input, VStack
+    Box, Container, HStack, Button, Text, Stack, Input, VStack
   } from '@chakra-ui/react'
   
 import { NavbarComponent  } from '@/components/Navbar/NavbarComponent'
@@ -28,7 +28,22 @@ const Home = ({ params }: { params: { id: string } }) => {
   return (
     <Box as="section" minH="md">
       <NavbarComponent showButtons={false} isLoggedIn={true}/>
-      
+      <Container maxW="3xl">
+      <Box border= "1px solid #EDF2F7" boxShadow="sm" bg="white" borderRadius="lg" p="6">
+        <Stack spacing="5">
+          <Stack spacing="1">
+            <Text textStyle="lg" fontWeight="medium">
+              {name}
+            </Text>
+            
+          </Stack>
+          <Stack direction={{ base: 'column', md: 'row' }} spacing="3">
+            <Button variant="secondary">Skip</Button>
+            <Button>Download</Button>
+          </Stack>
+        </Stack>
+      </Box>
+    </Container>
     </Box>
   )
 }
