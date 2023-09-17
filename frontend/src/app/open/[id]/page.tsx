@@ -83,7 +83,7 @@ const Home = ({ params }: { params: { id: string } }) => {
                   <Text>{name}</Text>
                       
                       <Button ml="3" size="xs" colorScheme="gray" onClick={() => {router.push("/dashboard")}} variant="solid">Dashboard</Button>
-                      <Button size="xs" colorScheme="gray" onClick={() => {router.push("/share/" + params.id)}} variant="solid">Share</Button>
+                      <Button size="xs" colorScheme="gray" href={"/share/" + params.id} as="a" target="_blank" variant="solid">Share</Button>
                   
             </HStack>
         </Box>

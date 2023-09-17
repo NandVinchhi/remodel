@@ -19,7 +19,7 @@ export const NavbarComponent = (props: NavbarProps) => {
     const router =  useRouter()
 
     return (
-        <Box borderBottomWidth={props.showButtons == false ? "0px" : "1px"} py="4" px="4" bg="bg.surface">
+        <Box borderBottomWidth={props.showButtons == false ? "0px" : "1px"} py="4" px="4" bg={props.showButtons == false ? "transparent":"bg.surface"}>
             <HStack justify="space-between">
                 <Logo height={8}/>
                 { props.showButtons && (

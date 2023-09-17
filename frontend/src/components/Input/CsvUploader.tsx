@@ -18,7 +18,10 @@ import { FiFileText } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import WaveSurfer from "wavesurfer.js";
 
-export const CsvUploader: React.FC = () => {
+interface UploadProps {
+    setValue(k: any): any
+}
+export const CsvUploader = (props: UploadProps) => {
    
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [csvURL, setCsvURL] = useState<string | null>(null);
@@ -39,6 +42,7 @@ export const CsvUploader: React.FC = () => {
         const file = event.target.files[0];
         
         if (file) {
+            props.setValue(file)
             const objectURL = URL.createObjectURL(file);
             setName(file.name);
             setSize(parseInt(file.size))
@@ -47,7 +51,8 @@ export const CsvUploader: React.FC = () => {
     };
 
     const reset = () => {
-       setCsvURL(null);
+       setCsvURL(null)
+       props.setValue(null)
        setName(null)
        setSize(0)
     };

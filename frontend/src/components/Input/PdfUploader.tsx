@@ -18,7 +18,11 @@ import { FiFileText } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import WaveSurfer from "wavesurfer.js";
 
-export const PdfUploader: React.FC = () => {
+interface UploadProps {
+    setValue(k: any): any
+}
+
+export const PdfUploader = (props: UploadProps) => {
    
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [pdfURL, setPdfURL] = useState<string | null>(null);
@@ -39,6 +43,7 @@ export const PdfUploader: React.FC = () => {
         const file = event.target.files[0];
         
         if (file) {
+            props.setValue(file)
             const objectURL = URL.createObjectURL(file);
             setName(file.name);
             setSize(parseInt(file.size))
@@ -49,6 +54,7 @@ export const PdfUploader: React.FC = () => {
     const reset = () => {
        setPdfURL(null);
        setName(null)
+       props.setValue(null)
        setSize(0)
     };
 

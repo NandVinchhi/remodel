@@ -18,7 +18,11 @@ import { FiImage } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import WaveSurfer from "wavesurfer.js";
 
-export const ImageUploader: React.FC = () => {
+interface UploadProps {
+    setValue(k: any): any
+}
+
+export const ImageUploader = (props: UploadProps) => {
    
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [imageURL, setImageURL] = useState<string | null>(null);
@@ -39,6 +43,7 @@ export const ImageUploader: React.FC = () => {
         const file = event.target.files[0];
         
         if (file) {
+            props.setValue(file)
             const objectURL = URL.createObjectURL(file);
             setName(file.name);
             setSize(parseInt(file.size))
@@ -47,6 +52,7 @@ export const ImageUploader: React.FC = () => {
     };
 
     const reset = () => {
+        props.setValue(null)
        setImageURL(null);
        setName(null)
        setSize(0)
