@@ -19,6 +19,11 @@ key: str = SUPABASE_SERVICE_KEY
 
 supabase: Client = create_client(url, key)
 
+def replace_attributes(s, attributeMap):
+    for key, value in attributeMap.items():
+        s = s.replace("{" + key + "}", str(value))
+    return s
+
 def get_inputs(id):
     k = supabase.table("InputBlocks").select("*").eq("entity_id", id).execute()
     for i in k:
@@ -74,8 +79,11 @@ def postdata():
 
         for i in processors:
             if i["processor_type"] == 'text2text':
-
+                finalMap[i["attribute"]] = chatCompletion(replace_attributes(i["prompt"], attributeMap))
             elif i["processor_type"] == 'text2image':
+                finalMap[i["attribute"]] = chatCompletion(replace_attributes(i["prompt"], attributeMap))
+
+        print(finalMap)
 
 
         return jsonify({"message": "Data received!"}), 200
