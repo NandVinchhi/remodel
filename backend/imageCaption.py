@@ -6,5 +6,3 @@ def imageToText(imageLink):
     captioner = pipeline("image-to-text",model="Salesforce/blip-image-captioning-base")
     return captioner(imageLink)[0]['generated_text']
 
-print(imageToText(link))
-
