@@ -129,4 +129,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 backend/credentials.py
-.credentials.json
+backend/credentials.json
+backend/credentials.json
+backend/credentials.json
