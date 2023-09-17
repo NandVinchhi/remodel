@@ -16,7 +16,11 @@ import { PiWaveformBold } from "react-icons/pi";
 import { useState, useEffect } from "react";
 import WaveSurfer from "wavesurfer.js";
 
-export const AudioRecorder: React.FC = () => {
+interface UploadProps {
+    setValue(k: any): any
+}
+
+export const AudioRecorder = (props: UploadProps) => {
     const [recording, setRecording] = useState(false);
     const [duration, setDuration] = useState(0);
     const [audioURL, setAudioURL] = useState<string | null>(null);
@@ -72,6 +76,7 @@ export const AudioRecorder: React.FC = () => {
             const audioBlob = new Blob(audioChunks);
             const audioUrl = URL.createObjectURL(audioBlob);
             setAudioURL(audioUrl);
+            props.setValue(audioBlob);
             setPlaying(false);
         };
 
@@ -109,7 +114,7 @@ export const AudioRecorder: React.FC = () => {
         
         if (file) {
             const objectURL = URL.createObjectURL(file);
-
+            props.setValue(file);
             setAudioURL(objectURL);
 
             const audio = new Audio();
@@ -123,6 +128,7 @@ export const AudioRecorder: React.FC = () => {
     const reset = () => {
         setDuration(0);
         setAudioURL(null);
+        props.setValue(null);
         setPlaying(false);
     };
 

@@ -23,21 +23,10 @@ const Home = ({ params }: { params: { id: string } }) => {
 
   const [attributeMap, setAttributeMap] = useState({})
 
-  const [disabled, setDisabled] = useState<boolean>(true)
-
   const setKey = (key, value) => {
     let k = attributeMap
     k[key] = value
     setAttributeMap(k)
-
-    inputs.map(i => {
-        if (!k[i.attribute]) {
-            setDisabled(false)
-            return
-        }
-    })
-
-    setDisabled(true)
   }
 
   useEffect (() => {
@@ -65,7 +54,9 @@ const Home = ({ params }: { params: { id: string } }) => {
                     return (
                         <Stack mt="1">
                         <Text textStyle="sm" fontWeight="medium">{i.title}</Text>
-                        <AudioRecorder/>
+                        <AudioRecorder setValue = {(k) => {
+                            setKey(i.attribute, k)
+                        }}/>
                         </Stack>
                     )
                 case 'text':
@@ -81,21 +72,27 @@ const Home = ({ params }: { params: { id: string } }) => {
                     return (
                         <Stack mt="1">
                         <Text textStyle="sm" fontWeight="medium">{i.title}</Text>
-                        <ImageUploader/>
+                        <ImageUploader setValue = {(k) => {
+                            setKey(i.attribute, k)
+                        }}/>
                         </Stack>
                     )
                 case 'pdf':
                     return (
                         <Stack mt="1">
                         <Text textStyle="sm" fontWeight="medium">{i.title}</Text>
-                        <PdfUploader/>
+                        <PdfUploader setValue = {(k) => {
+                            setKey(i.attribute, k)
+                        }}/>
                         </Stack>
                     )
                 case 'csv':
                     return (
                         <Stack mt="1">
                         <Text textStyle="sm" fontWeight="medium">{i.title}</Text>
-                        <CsvUploader/>
+                        <CsvUploader setValue = {(k) => {
+                            setKey(i.attribute, k)
+                        }}/>
                         </Stack>
                     )
                 case 'date':
@@ -124,7 +121,7 @@ const Home = ({ params }: { params: { id: string } }) => {
             }
           })}
           <Stack direction={{ base: 'column', md: 'row' }} mt="2" spacing="3" >
-            <Button onClick ={() => console.log(attributeMap)} w="full" isDisabled={false} >Submit</Button>
+            <Button onClick ={() => console.log(attributeMap)} w="full" >Submit</Button>
           </Stack>
         </Stack>
       </Box>
