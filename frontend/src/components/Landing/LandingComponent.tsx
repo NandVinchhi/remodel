@@ -38,7 +38,7 @@ return (
             Custom AI workflows in seconds
             </Heading>
             <Text fontSize="xl" mt="4" maxW="2xl" mx="auto">
-            We're an intuitive platform for building complex workflows that leverage cutting edge LLMs and more.
+            We're an intuitive platform for building complex workflows that leverage cutting edge LLMs, diffusion models, and more.
             </Text>
         </Box>
 
@@ -64,11 +64,12 @@ return (
             cursor="pointer"
             position="relative"
             rounded="lg"
+            boxShadow={"md"}
             overflow="hidden"
         >
             <Img
             alt="Screenshot of Envelope App"
-            src="https://res.cloudinary.com/chakra-ui-pro/image/upload/v1621085270/pro-website/app-screenshot-light_kit2sp.png"
+            src="/landing.png"
             />
         </Box>
         </Box>

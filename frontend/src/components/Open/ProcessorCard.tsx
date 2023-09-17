@@ -23,14 +23,14 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
  
      return (
          <>
-             <Box border= "1px solid #EDF2F7" boxShadow="sm" bg="white" borderRadius="lg" p="4">
+             <Box mt="2" border= "1px solid #EDF2F7" boxShadow="sm" bg="white" borderRadius="lg" p="4">
                  <Stack justify="space-between" direction="row" spacing="4">
                      <Stack spacing="1">
                          <Text textStyle="md" fontWeight="medium">
                              {processorMap[props.row.processor_type]}
                          </Text>
                          <Text mt="2" textStyle="sm" color="fg.muted">
-                             Stores <Badge variant="solid" size="xs">{props.row.attribute}</Badge>  as <Badge variant="solid" size="xs" colorScheme="teal">{props.row.outgoing_type.toUpperCase()}</Badge>
+                             Generates <Badge variant="solid" size="xs">{props.row.attribute}</Badge>  as <Badge variant="solid" size="xs" colorScheme="teal">{props.row.outgoing_type.toUpperCase()}</Badge>
                          </Text>
  
                          <HStack mt="2">

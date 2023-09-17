@@ -1,38 +1,52 @@
 import React, { useState, useRef } from 'react';
-import { Box, Button, HStack, VStack, Textarea } from '@chakra-ui/react';
+import { Box, Button, HStack, VStack, Textarea, Badge } from '@chakra-ui/react';
 
 interface CustomTextInputProps {
-    attributes: string[]
+    attributes: string[],
+    text: string,
+    setValue: (val: string) => void
 }
 
 export const CustomTextInput  = (props: CustomTextInputProps) => {
 
-    const [text, setText] = useState<string>("")
     const handleChange = (e: any) => {
-        const lastChar: string = e.target.value[e.target.value.length - 1]
-        if (lastChar != "}" && lastChar != "{") {
-            setText(e.target.value)
-        } else if (e.target.value.length < text.length) {
-            setText(e.target.value)
+        // Get the current value of the textarea
+        const currentValue = e.target.value;
+      
+        // Get the previous value of the textarea before the change event
+        const previousValue = e.target.defaultValue;
+      
+        // Check if a curly brace has been added in the current change
+        const curlyBraceAdded =
+          (currentValue.match(/{/g) || []).length > (previousValue.match(/{/g) || []).length ||
+          (currentValue.match(/}/g) || []).length > (previousValue.match(/}/g) || []).length;
+      
+        // If a curly brace has been added, prevent the change
+        if (curlyBraceAdded) {
+          e.preventDefault();
+        } else {
+          // Otherwise, update the defaultValue to the current value so we have it for the next change event
+          e.target.defaultValue = currentValue;
+          props.setValue(e.target.defaultValue)
         }
-    }
-
+      };
     const handleAttributeInsertion = (e: string) => {
-        setText(text + "{" + e + "}")
+        props.setValue(props.text + "{" + e + "}")
     }
 
     return (
         <>
-        <Textarea value={text} onChange={handleChange}>
+        <HStack mt="2">
+            {props.attributes.map((attr, index) => (
+                <Badge size="xs" variant="solid" key={index} style={{ cursor: "pointer"}} onClick={() => handleAttributeInsertion(attr)}>
+                    {attr}
+                </Badge>
+            ))}
+        </HStack>
+        <Textarea mt="2" value={props.text} onChange={handleChange}>
 
         </Textarea>
-            <HStack mt="2">
-                {props.attributes.map((attr, index) => (
-                    <Button size="xs" key={index} onClick={() => handleAttributeInsertion(attr)}>
-                        {attr}
-                    </Button>
-                ))}
-            </HStack>
+            
         </>
     );
 }

@@ -30,7 +30,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
  
      return (
          <>
-             <Box border= "1px solid #EDF2F7" boxShadow="sm" bg="white" borderRadius="lg" p="4">
+             <Box mt="2" border= "1px solid #EDF2F7" boxShadow="sm" bg="white" borderRadius="lg" p="4">
                  <Stack justify="space-between" direction="row" spacing="4">
                      <Stack spacing="1">
                          <Text textStyle="md" fontWeight="medium">
@@ -43,16 +43,18 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
                          )}
                          
                          
-                         <HStack mt="2">
-                         <Text textStyle="sm" fontWeight="bold">
-                             Title: 
-                         </Text>
-                         <Text textStyle="sm" color="fg.muted">
-                            "{props.row.title}"
-                         </Text>
-                         </HStack>
+                         { (props.row.output_type == 'image' || props.row.output_type == 'text') && (
+                            <HStack mt="2">
+                            <Text textStyle="sm" fontWeight="bold">
+                                Title: 
+                            </Text>
+                            <Text textStyle="sm" color="fg.muted">
+                               "{props.row.title}"
+                            </Text>
+                            </HStack>
+                         ) }
  
-                         { props.row.text_content && (
+                         { (props.row.text_content && (props.row.output_type == 'email' || props.row.output_type == 'text' || props.row.output_type == 'sms')) && (
                              <HStack mt="2">
                              <Text textStyle="sm" fontWeight="bold">
                                  Text content: 
@@ -63,7 +65,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
                              </HStack>
      
                          )}
-                         { props.row.gsheet_url && (
+                         { props.row.gsheet_url && (props.row.output_type == 'gsheet') && (
                              <HStack mt="2">
                              <Text textStyle="sm" fontWeight="bold">
                                  URL: 
@@ -75,7 +77,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
      
                          )}
 
-                        { props.row.gsheet_url && (
+                        { props.row.phone_number && (props.row.output_type == 'sms') && (
                              <HStack mt="2">
                              <Text textStyle="sm" fontWeight="bold">
                                  Phone number: 
@@ -87,7 +89,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
      
                          )}
 
-                        { props.row.email && (
+                        { props.row.email && (props.row.output_type == 'email') && (
                              <HStack mt="2">
                              <Text textStyle="sm" fontWeight="bold">
                                  Email: 
@@ -99,7 +101,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
      
                          )}
 
-                        { props.row.email_subject && (
+                        { props.row.email_subject && (props.row.output_type == 'email') && (
                              <HStack mt="2">
                              <Text textStyle="sm" fontWeight="bold">
                                  Email subject: 

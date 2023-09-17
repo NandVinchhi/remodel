@@ -13,6 +13,9 @@ import { Row } from '@/components/SupabaseTypes'
 import { InputCard } from '@/components/Open/InputCard'
 import { OutputCard } from '@/components/Open/OutputCard'
 import { ProcessorCard } from '@/components/Open/ProcessorCard'
+import { AddInputCard } from '@/components/Open/AddInputCard'
+import { AddOutputCard } from '@/components/Open/AddOutputCard'
+import { AddProcessorCard } from '@/components/Open/AddProcessorCard'
 
 const Home = ({ params }: { params: { id: string } }) => {
   const router = useRouter()
@@ -25,6 +28,23 @@ const Home = ({ params }: { params: { id: string } }) => {
   const [addInput, setAddInput] = useState<boolean>(false);
   const [addProcessor, setAddProcessor] = useState<boolean>(false);
   const [addOutput, setAddOutput] = useState<Boolean>(false);
+
+  const validateAttribute = (a: string): boolean => {
+    let final: boolean = true
+    inputs.map(i => {
+      
+      if (a == i.attribute) {
+        final = false
+      }
+    })
+    processors.map(o => {
+      if (a == o.attribute) {
+        final = false
+      }
+    })
+
+    return final
+  }
 
   useEffect(() => {
     getSession().then(result => {
@@ -97,7 +117,14 @@ const Home = ({ params }: { params: { id: string } }) => {
                     })
                   }} row ={row}/>
                 ))}
-                <Button mt="2" onClick = {() => setAddInput(true)} w="full" leftIcon={<AiOutlinePlus/>}>Add</Button>
+
+                { addInput ? <AddInputCard validateAttribute={validateAttribute} add = {(row: Row<'InputBlocks'>) => {
+                  let temp = inputs
+                  temp.push(row)
+                  setInputs(temp)
+                  setAddInput(false)
+                }} entity_id={parseInt(params.id)} cancel = {() => setAddInput(false)}/> : <Button mt="2" onClick = {() => setAddInput(true)} w="full" leftIcon={<AiOutlinePlus/>}>Add</Button>}
+               
               </Stack>
              
           </Box>
@@ -128,7 +155,19 @@ const Home = ({ params }: { params: { id: string } }) => {
                     })
                   }} row ={row}/>
                 ))}
-                <Button mt="2" onClick = {() => setAddProcessor(true)} w="full" leftIcon={<AiOutlinePlus/>}>Add</Button>
+                { addProcessor ? <AddProcessorCard getAttributes={(): string[] => {
+                  let l: string[] = []
+                  inputs.map(i => {
+                    l.push(i.attribute)
+                  })
+                  return l
+                }} validateAttribute={validateAttribute} add = {(row: Row<'ProcessorBlocks'>) => {
+                  let temp = processors
+                  temp.push(row)
+                  setProcessors(temp)
+                  setAddProcessor(false)
+                }} entity_id={parseInt(params.id)} cancel = {() => setAddProcessor(false)}/> : <Button mt="2" onClick = {() => setAddProcessor(true)} w="full" leftIcon={<AiOutlinePlus/>}>Add</Button>}
+               
               </Stack>
           </Box>
           <Box
@@ -159,7 +198,52 @@ const Home = ({ params }: { params: { id: string } }) => {
                     })
                   }} row ={row}/>
                 ))}
-                <Button mt="2" onClick = {() => setAddOutput(true)} w="full" leftIcon={<AiOutlinePlus/>}>Add</Button>
+                { addOutput ? <AddOutputCard getTextAttributes={(): string[] => {
+                  let l: string[] = []
+                  inputs.map(i => {
+                    if (i.outgoing_type == 'text') {
+                      l.push(i.attribute)
+                    }
+                  })
+                  processors.map(o => {
+                    if (o.outgoing_type == 'text') {
+                      l.push(o.attribute)
+                    }
+                  })
+                  return l
+                }} getImageAttributes={(): string[] => {
+                  let l: string[] = []
+                  inputs.map(i => {
+                    if (i.outgoing_type == 'image') {
+                      l.push(i.attribute)
+                    }
+                  })
+                  processors.map(o => {
+                    if (o.outgoing_type == 'image') {
+                      l.push(o.attribute)
+                    }
+                  })
+                  return l
+                }} getCsvAttributes={(): string[] => {
+                  let l: string[] = []
+                  inputs.map(i => {
+                    if (i.outgoing_type == 'csv') {
+                      l.push(i.attribute)
+                    }
+                  })
+                  processors.map(o => {
+                    if (o.outgoing_type == 'csv') {
+                      l.push(o.attribute)
+                    }
+                  })
+                  return l
+                }}  validateAttribute={validateAttribute} add = {(row: Row<'OutputBlocks'>) => {
+                  let temp = outputs
+                  temp.push(row)
+                  setOutputs(temp)
+                  setAddOutput(false)
+                }} entity_id={parseInt(params.id)} cancel = {() => setAddOutput(false)}/> : <Button mt="2" onClick = {() => setAddOutput(true)} w="full" leftIcon={<AiOutlinePlus/>}>Add</Button>}
+               
               </Stack>
           </Box>
       </Stack>
