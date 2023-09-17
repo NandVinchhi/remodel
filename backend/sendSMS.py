@@ -7,9 +7,9 @@ account_sid = credentials.account_sid
 auth_token = credentials.auth_token
 client = Client(account_sid, auth_token)
 
-def sendSMS(text):
-    message = client.messages.create(from_ = '+18447290227', body = text, to='+15716212670')
+def sendSMS(text, phone):
+    message = client.messages.create(from_ = '+18337831029', body = text, to=phone)
     print(message.body)
     return None
 
-#sendSMS("Trial Message")
+sendSMS("Trial message", "+12406969678")
