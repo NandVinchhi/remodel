@@ -13,6 +13,7 @@ from readPDF import readPDF
 from speechToText import speechToText
 from ollama import chatCompletion
 from stableDiffusion import stableDiffuse
+from sendSMS import sendSMS
 
 url: str = SUPABASE_URL
 key: str = SUPABASE_SERVICE_KEY
@@ -73,21 +74,30 @@ def postdata():
             elif i['input_type'] == 'voice':
                 attributeMap[i['attribute']] = speechToText(attributeMap[i['attribute']])
 
-        finalMap = {}
 
         processors = get_processors(int(entity_id))
 
         for i in processors:
             if i["processor_type"] == 'text2text':
-                finalMap[i["attribute"]] = chatCompletion(replace_attributes(i["prompt"], attributeMap))
+                attributeMap[i["attribute"]] = chatCompletion(replace_attributes(i["prompt"], attributeMap))
             elif i["processor_type"] == 'text2image':
-                finalMap[i["attribute"]] = stableDiffuse(replace_attributes(i["prompt"], attributeMap))
+                attributeMap[i["attribute"]] = stableDiffuse(replace_attributes(i["prompt"], attributeMap))
 
         outputs = get_outputs(int(entity_id))
 
-        
+        print(attributeMap)
 
-        return jsonify({"message": "Data received!"}), 200
+        final = []
+
+        for i in outputs:
+            if i["output_type"] == "sms":
+                sendSMS(replace_attributes(i["text_content"], attributeMap), i["phone_number"])
+            elif i["output_type"] == "image":
+                final.append({ "type": "image", "title": i["title"], "url": "http://127.0.0.1:5000/files/" + attributeMap[i["attribute"]]})
+            elif i["output_type"] == "text":
+                final.append({ "type": "text", "title": i["title"], "data": replace_attributes(i["text_content"], attributeMap)})
+
+        return jsonify({"message": "Data received!", "data": final}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 

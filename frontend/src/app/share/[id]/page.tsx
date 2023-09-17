@@ -1,7 +1,7 @@
 'use client'
 
 import {
-    Box, Container, HStack, Button, Text, Stack, FormLabel, Input, VStack, Textarea, Select, Center
+    Box, Container, HStack, Button, Text, Stack, FormLabel, Image, Input, VStack, Textarea, Select, Center
   } from '@chakra-ui/react'
   
 import { NavbarComponent } from '@/components/Navbar/NavbarComponent'
@@ -25,7 +25,9 @@ const Home = ({ params }: { params: { id: string } }) => {
 
   const [attributeMap, setAttributeMap] = useState({})
 
-  const [formData, setFormData] = useState<any>(new FormData());
+  const [loading, setLoading] = useState<boolean>(false)
+  const [generated, setGenerated] = useState<boolean>(false)
+
 
   const setKey = (key, value) => {
     let k = attributeMap
@@ -40,8 +42,12 @@ const Home = ({ params }: { params: { id: string } }) => {
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     headers.append('Origin','http://localhost:3000');
+    setLoading(true)
     fetch("http://127.0.0.1:5000/call", {body: JSON.stringify({data: attributeMap, id: params.id}), headers: headers, method: "POST"}).then(res => res.json()).then(result => {
         console.log(result)
+        setOutputs(result.data)
+        setLoading(false)
+        setGenerated(true)
     })
   }
 
@@ -64,6 +70,11 @@ const Home = ({ params }: { params: { id: string } }) => {
               {name}
             </Text>
           </Stack>
+
+          { !generated && (<>
+          
+          
+          
           {inputs.map(i => {
             switch (i.input_type) {
                 case 'voice':
@@ -137,9 +148,27 @@ const Home = ({ params }: { params: { id: string } }) => {
             }
           })}
           <Stack direction={{ base: 'column', md: 'row' }} mt="2" spacing="3" >
-            <Button onClick ={handleSubmit} w="full" >Submit</Button>
+            <Button onClick ={handleSubmit} w="full" isLoading={loading}>Submit</Button>
           </Stack>
+
+          </>)}
+
+          {generated && (
+            <>
+                { outputs.map(o => (
+                    <>
+                        <Text textStyle="md" fontWeight="bold">{o.title}</Text>
+                        {o.type == "text" ? <Text textStyle="sm" fontWeight={"md"}>{o.data}</Text> : <Image w="80" borderRadius={10} src={o.url}/>}
+                    </>
+                ))}
+
+            <Stack direction={{ base: 'column', md: 'row' }} mt="2" spacing="3" >
+                <Button onClick ={() => window.location.reload(false)} w="full" isLoading={loading}>Reload</Button>
+            </Stack>
+            </>
+          )}
         </Stack>
+        
       </Box>
     </Container>
     </Box>
