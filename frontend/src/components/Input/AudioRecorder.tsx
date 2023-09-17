@@ -118,6 +118,7 @@ export const AudioRecorder = (props: UploadProps) => {
             data.append("file", file)
             data.append("filename", "upload.mp3")
             fetch("http://127.0.0.1:5000/upload", {method: "POST", body: data}).then(response => response.json()).then(result => {
+                console.log(result)
                 props.setValue(result.data)
             })
             setAudioURL(objectURL);

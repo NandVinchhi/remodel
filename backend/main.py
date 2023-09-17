@@ -60,6 +60,7 @@ def postdata():
         data = request.json
         entity_id = data['id']
         attributeMap = data['data']
+        print(attributeMap)
         inputs = get_inputs(int(entity_id))
         
         for i in inputs:
@@ -72,7 +73,6 @@ def postdata():
             elif i['input_type'] == 'voice':
                 attributeMap[i['attribute']] = speechToText(attributeMap[i['attribute']])
 
-        print(attributeMap)
         finalMap = {}
 
         processors = get_processors(int(entity_id))
@@ -81,10 +81,11 @@ def postdata():
             if i["processor_type"] == 'text2text':
                 finalMap[i["attribute"]] = chatCompletion(replace_attributes(i["prompt"], attributeMap))
             elif i["processor_type"] == 'text2image':
-                finalMap[i["attribute"]] = chatCompletion(replace_attributes(i["prompt"], attributeMap))
+                finalMap[i["attribute"]] = stableDiffuse(replace_attributes(i["prompt"], attributeMap))
 
-        print(finalMap)
+        outputs = get_outputs(int(entity_id))
 
+        
 
         return jsonify({"message": "Data received!"}), 200
     except Exception as e:
