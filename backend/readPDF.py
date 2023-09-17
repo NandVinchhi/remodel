@@ -1,7 +1,7 @@
 from PyPDF2 import PdfReader
 
 def readPDF(pdfFile):
-    reader = PdfReader(pdfFile)
+    reader = PdfReader("files/" + pdfFile)
 
     text = ""
     for i in range(len(reader.pages)):
@@ -9,6 +9,3 @@ def readPDF(pdfFile):
         text = text + " " + page.extract_text()
     
     return text
-
-
-

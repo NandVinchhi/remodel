@@ -21,12 +21,28 @@ const Home = ({ params }: { params: { id: string } }) => {
 
   const [inputs, setInputs] = useState<Row<'InputBlocks'>[]>([])
 
+  const [outputs, setOutputs] = useState<any>([])
+
   const [attributeMap, setAttributeMap] = useState({})
+
+  const [formData, setFormData] = useState<any>(new FormData());
 
   const setKey = (key, value) => {
     let k = attributeMap
     k[key] = value
     setAttributeMap(k)
+  }
+
+  const handleSubmit = () => {
+    console.log(attributeMap)
+    let headers = new Headers();
+
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Origin','http://localhost:3000');
+    fetch("http://127.0.0.1:5000/call", {body: JSON.stringify({data: attributeMap, id: params.id}), headers: headers, method: "POST"}).then(res => res.json()).then(result => {
+        console.log(result)
+    })
   }
 
   useEffect (() => {
@@ -121,7 +137,7 @@ const Home = ({ params }: { params: { id: string } }) => {
             }
           })}
           <Stack direction={{ base: 'column', md: 'row' }} mt="2" spacing="3" >
-            <Button onClick ={() => console.log(attributeMap)} w="full" >Submit</Button>
+            <Button onClick ={handleSubmit} w="full" >Submit</Button>
           </Stack>
         </Stack>
       </Box>

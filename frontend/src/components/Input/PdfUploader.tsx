@@ -43,7 +43,12 @@ export const PdfUploader = (props: UploadProps) => {
         const file = event.target.files[0];
         
         if (file) {
-            props.setValue(file)
+            const data = new FormData();
+            data.append("file", file)
+            data.append("filename", "upload.pdf")
+            fetch("http://127.0.0.1:5000/upload", {method: "POST", body: data}).then(response => response.json()).then(result => {
+                props.setValue(result.data)
+            })
             const objectURL = URL.createObjectURL(file);
             setName(file.name);
             setSize(parseInt(file.size))

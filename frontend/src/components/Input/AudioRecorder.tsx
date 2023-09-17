@@ -114,7 +114,12 @@ export const AudioRecorder = (props: UploadProps) => {
         
         if (file) {
             const objectURL = URL.createObjectURL(file);
-            props.setValue(file);
+            const data = new FormData()
+            data.append("file", file)
+            data.append("filename", "upload.mp3")
+            fetch("http://127.0.0.1:5000/upload", {method: "POST", body: data}).then(response => response.json()).then(result => {
+                props.setValue(result.data)
+            })
             setAudioURL(objectURL);
 
             const audio = new Audio();
@@ -167,13 +172,13 @@ export const AudioRecorder = (props: UploadProps) => {
                                 ref={inputRef}
                                 onChange={handleFileChange} 
                             />
-                            <Button
+                            {/* <Button
                                 
                                 leftIcon={<PiWaveformBold />}
                                 onClick={startRecording}
                             >
                                 Record
-                            </Button>
+                            </Button> */}
 
                             <Button
                                 leftIcon={<FaUpload />}

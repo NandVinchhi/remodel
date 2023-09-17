@@ -1,8 +1,11 @@
 from transformers import pipeline
 
-link = "https://huggingface.co/datasets/Narsil/image_dummy/raw/main/parrots.png"
-
-def imageToText(imageLink):
+def imageToText(fileName):
     captioner = pipeline("image-to-text",model="Salesforce/blip-image-captioning-base")
+<<<<<<< Updated upstream
     return captioner(imageLink)[0]['generated_text']
 
+=======
+    imageLink = 'http://127.0.0.1:5000/files/' + fileName
+    return captioner(imageLink)[0]['generated_text']
+>>>>>>> Stashed changes
