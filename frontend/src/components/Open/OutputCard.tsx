@@ -27,6 +27,14 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
          "text2image": "Stable Diffusion",
          "text2text": "Lllama 2"
      }
+
+     const shorten = (k: string) => {
+        let final = k.substring(0, 50)
+        if (k.length > 60) {
+            final += "..."
+        }
+        return final
+     }
  
      return (
          <>
@@ -49,7 +57,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
                                 Title: 
                             </Text>
                             <Text textStyle="sm" color="fg.muted">
-                               "{props.row.title}"
+                               "{shorten(props.row.title)}"
                             </Text>
                             </HStack>
                          ) }
@@ -60,7 +68,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
                                  Text content: 
                              </Text>
                              <Text textStyle="sm" color="fg.muted">
-                                "{props.row.text_content}"
+                                "{shorten(props.row.text_content)}"
                              </Text>
                              </HStack>
      
@@ -71,7 +79,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
                                  URL: 
                              </Text>
                              <Text textStyle="sm" color="fg.muted">
-                                "{props.row.gsheet_url}"
+                                "{shorten(props.row.gsheet_url)}"
                              </Text>
                              </HStack>
      
@@ -83,7 +91,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
                                  Phone number: 
                              </Text>
                              <Text textStyle="sm" color="fg.muted">
-                                "{props.row.phone_number}"
+                                "{shorten(props.row.phone_number)}"
                              </Text>
                              </HStack>
      
@@ -95,7 +103,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
                                  Email: 
                              </Text>
                              <Text textStyle="sm" color="fg.muted">
-                                "{props.row.email}"
+                                "{shorten(props.row.email)}"
                              </Text>
                              </HStack>
      
@@ -107,7 +115,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
                                  Email subject: 
                              </Text>
                              <Text textStyle="sm" color="fg.muted">
-                                "{props.row.email_subject}"
+                                "{shorten(props.row.email_subject)}"
                              </Text>
                              </HStack>
      

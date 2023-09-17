@@ -24,6 +24,14 @@ export const InputCard = (props: CardProps) => {
         "text2text": "Lllama 2"
     }
 
+    const shorten = (k: string) => {
+        let final = k.substring(0, 50)
+        if (k.length > 60) {
+            final += "..."
+        }
+        return final
+     }
+
     return (
         <>
             <Box mt="2" border= "1px solid #EDF2F7" boxShadow="sm" bg="white" borderRadius="lg" p="4">
@@ -41,7 +49,7 @@ export const InputCard = (props: CardProps) => {
                             Title: 
                         </Text>
                         <Text textStyle="sm" color="fg.muted">
-                           "{props.row.title}"
+                           "{shorten(props.row.title)}"
                         </Text>
                         </HStack>
 
@@ -53,7 +61,7 @@ export const InputCard = (props: CardProps) => {
 
                             {props.row.mcq_options.map((option, i) => (
                                 <Text textStyle="sm" color="fg.muted">
-                                ➜ "{option}"
+                                ➜ "{shorten(option)}"
                              </Text>
                             ))}
                             
@@ -66,7 +74,7 @@ export const InputCard = (props: CardProps) => {
                                 Process with: 
                             </Text>
                             <Badge size="xs" variant="solid">
-                               {processorMap[props.row.image_processor]}
+                               {shorten(processorMap[props.row.image_processor])}
                             </Badge>
                             </HStack>
     

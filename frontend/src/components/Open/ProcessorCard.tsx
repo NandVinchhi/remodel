@@ -20,6 +20,14 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
          "text2image": "Stable Diffusion",
          "text2text": "Lllama 2"
      }
+
+     const shorten = (k: string) => {
+        let final = k.substring(0, 50)
+        if (k.length > 60) {
+            final += "..."
+        }
+        return final
+     }
  
      return (
          <>
@@ -38,7 +46,7 @@ import { Box, IconButton, Stack, Text, Tooltip, useToken,
                              Prompt: 
                          </Text>
                          <Text textStyle="sm" color="fg.muted">
-                            "{props.row.prompt}"
+                            "{shorten(props.row.prompt)}"
                          </Text>
                          </HStack>
                          
