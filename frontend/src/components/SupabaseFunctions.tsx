@@ -44,9 +44,14 @@ export async function resetPassword(new_password: string): Promise<UserResponse>
 }
 
 export async function getEntities(): Promise<Row<'Entities'>[]> {
+    let userid = (await supabase.auth.getUser()).data.user?.id ;
+    if (!userid) {
+        userid = ""
+    }
     let { data, error } = await supabase
         .from('Entities')
         .select('*')
+        .eq("user_id", userid)
 
     if (data) {
         return data
