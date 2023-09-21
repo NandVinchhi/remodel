@@ -1,6 +1,8 @@
 from diffusers import DiffusionPipeline
 import uuid
 
+from ollama import chatCompletion
+
 pipe = DiffusionPipeline.from_pretrained("runwayml/stable-diffusion-v1-5")
 pipe = pipe.to("mps")
 
@@ -11,7 +13,7 @@ pipe.enable_attention_slicing()
 
 def stableDiffuse(prompt):
     # First-time "warmup" pass if PyTorch version is 1.13 (see explanation above)
-    _ = pipe(prompt, num_inference_steps=1)
+    _ = pipe(chatCompletion(f"Generate an evocative image generation prompt based on this text: {prompt}"), num_inference_steps=1)
 
     # Results match those from the CPU device after the warmup pass.
     image = pipe(prompt).images[0]

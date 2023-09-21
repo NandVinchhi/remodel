@@ -130,5 +130,5 @@ dist
 .pnp.*
 backend/credentials.py
 backend/credentials.json
-backend/credentials.json
-backend/credentials.json
+*.pyc
+backend/files/*
